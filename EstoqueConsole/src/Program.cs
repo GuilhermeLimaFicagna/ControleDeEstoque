@@ -23,7 +23,9 @@ while (true)
         case "1":
             Console.WriteLine("Em construção");
             break;
-
+        case "2":
+            Console.WriteLine("Em construção");
+            break;
         default:
             Console.WriteLine("Em construção");
             break;
