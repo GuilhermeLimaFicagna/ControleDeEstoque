@@ -4,8 +4,11 @@ Um sistema simples em C# para gerenciar produtos em estoque. Permite adicionar, 
 
 ## Funcionalidades
 
-- Adicionar produtos
+- Listar produtos
+- Cadastrar produtos
 - Editar produtos
 - Excluir produtos
-- Listar produtos
+- Dar ENTRADA em Estoque
+- Dar SAÍDA em Estoque
+- Relatório de Estoque (Movimentação e Controle)
 - Exportar para CSV
