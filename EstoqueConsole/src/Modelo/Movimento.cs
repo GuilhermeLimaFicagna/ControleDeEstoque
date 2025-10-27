@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace EstoqueConsole.src.Modelo;
 
-namespace EstoqueConsole.src.Modelo
-{
-    public class Movimento
-    {
-    }
-}
+public readonly record struct Movimento(
+    int id,
+    int produtoId,
+    string tipo, // "ENTRADA" ou "SAIDA"
+    int quantidade,
+    DateTime data,
+    string observacao
+);
