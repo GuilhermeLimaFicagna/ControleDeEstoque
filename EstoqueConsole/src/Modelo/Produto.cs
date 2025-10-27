@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace EstoqueConsole.src.Modelo;
 
-namespace EstoqueConsole.src.Modelo
-{
-    internal class Produto
-    {
-    }
-}
+public readonly record struct Produto(
+    int id,
+    string nome,
+    string categoria,
+    int estoqueMinimo,
+    int saldo
+);
