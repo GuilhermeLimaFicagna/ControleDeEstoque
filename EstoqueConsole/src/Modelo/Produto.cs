@@ -1,9 +1,9 @@
 ﻿namespace EstoqueConsole.src.Modelo;
 
 public readonly record struct Produto(
-    int id,
-    string nome,
-    string categoria,
-    int estoqueMinimo,
-    int saldo
+    int Id,
+    string Nome,
+    string Categoria,
+    int EstoqueMinimo,
+    int Saldo
 );
