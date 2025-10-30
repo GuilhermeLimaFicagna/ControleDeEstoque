@@ -5,7 +5,7 @@ namespace EstoqueConsole.src.Servico
 {
     public class Uteis
     {
-        public static string _Path () // Pega o caminho do arquivo
+        public static string _Path() // Pega o caminho do arquivo.csv independente do computador
         {
             // Tratamento do Path
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
@@ -15,7 +15,8 @@ namespace EstoqueConsole.src.Servico
             return path;
         }
 
-        public static List<Produto> ListarProduto() // Lista os arquivos
+        // Lista os produtos dentro do .csv
+        public static List<Produto> ListarProduto()
         {
             var produtos = new List<Produto>();
             foreach (var line in File.ReadAllLines(_Path(), Encoding.UTF8).Skip(1))
@@ -31,6 +32,42 @@ namespace EstoqueConsole.src.Servico
                 ));
             }
             return produtos;
+        }
+
+        // Cria produto 
+        public static Produto CriarProduto()
+        {
+            Console.Write("Nome do produto: ");
+            var nome = Console.ReadLine();
+
+            Console.Write("Categoria do produto: ");
+            var categoria = Console.ReadLine();
+
+            int estoqueMinimo;
+            while (true)
+            {
+                Console.Write("Estoque Mínimo do produto: ");
+                estoqueMinimo = int.Parse(Console.ReadLine());
+                if (estoqueMinimo < 0)
+                {
+                    Console.WriteLine("Estoque Mínimo não pode ser menor que zero!");
+                    continue;
+                }
+                break;
+            }
+            
+            Console.Write("Saldo do produto: ");
+            var saldo = int.Parse(Console.ReadLine());
+
+            // Criando obj Produto para retornar
+            var produto = new Produto(
+                Id: 0,
+                Nome: nome,
+                Categoria: categoria,
+                EstoqueMinimo: estoqueMinimo,
+                Saldo: saldo
+            );
+            return produto;
         }
     }
 }

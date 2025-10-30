@@ -6,6 +6,11 @@ Console.WriteLine("Cleberson Cesar Bueno dos Santos - 2025105040");
 Console.WriteLine("Guilherme de lima Ficagna - 2025105145");
 Console.WriteLine("Eduardo Lopes Barros dos Santos - 2025105015");
 
+// Produtos em RAM
+var produtos = Uteis.ListarProduto();
+int NextId() => produtos.Any() ? produtos.Max(c => c.Id) + 1 : 1; // Gera o proximo ID do produto
+
+
 while (true)
 {
     Console.WriteLine("1. Listar produtos");
@@ -20,23 +25,32 @@ while (true)
     Console.WriteLine("0. Sair");
     Console.Write("Opção: ");
     var op = Console.ReadLine();
+    Console.WriteLine(); // Estética
 
     switch (op)
     {
         case "1":
             Console.WriteLine("ID | NOME | CATEGORIA | ESTOQUE MÍNIMO | SALDO");
-            var produtos = Uteis.ListarProduto();
             foreach (var produto in produtos)
             {
                 Console.WriteLine($"{produto.Id} | {produto.Nome} | {produto.Categoria} | {produto.EstoqueMinimo} | {produto.Saldo} ");
             }
+            Console.WriteLine();
             break;
         case "2":
-            Console.WriteLine("Em construção");
+            var novoProduto = Uteis.CriarProduto();
+            novoProduto.Id = NextId(); // Definindo id
+
+            // Adicionando a lista em RAM
+            produtos.Add(novoProduto);
+            Console.WriteLine($"Produto {novoProduto.Id} adicionado com sucesso !");
+            Console.WriteLine();
             break;
+        case "0":
+            Console.WriteLine("Volte sempre");
+            return;
         default:
-            Console.WriteLine("Em construção");
+            Console.WriteLine("Opção invalida !!!");
             break;
     }
-    break;
 }

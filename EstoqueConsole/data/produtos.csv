@@ -1,5 +1,5 @@
 id;nome;categoria;estoqueMinimo;saldo;
-1212;banana;comida;12;3232;
-1412;maça;comida;17;9876;
-1512;coco;comida;42;6532;
-5412;banana;comida;12;2345;
+1;mouse;periférico;5;300;
+2;teclado;periférico;10;200;
+3;monitor;vídeo;20;100;
+4;ssd;armazenamento;20;120;

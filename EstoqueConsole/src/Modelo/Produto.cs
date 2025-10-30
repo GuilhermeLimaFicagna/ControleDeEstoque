@@ -1,6 +1,6 @@
 ﻿namespace EstoqueConsole.src.Modelo;
 
-public readonly record struct Produto(
+public record struct Produto(
     int Id,
     string Nome,
     string Categoria,
