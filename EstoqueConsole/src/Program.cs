@@ -6,9 +6,6 @@ Console.WriteLine("Cleberson Cesar Bueno dos Santos - 2025105040");
 Console.WriteLine("Guilherme de lima Ficagna - 2025105145");
 Console.WriteLine("Eduardo Lopes Barros dos Santos - 2025105015");
 
-var arq = @"D:\2°_período\Prática_Profissional_Desenvolvimento\2_bi\Estoque\EstoqueConsole\data\produtos.csv";
-
-
 while (true)
 {
     Console.WriteLine("1. Listar produtos");
@@ -28,7 +25,7 @@ while (true)
     {
         case "1":
             Console.WriteLine("ID | NOME | CATEGORIA | ESTOQUE MÍNIMO | SALDO");
-            var produtos = Uteis.ListarProduto(arq);
+            var produtos = Uteis.ListarProduto();
             foreach (var produto in produtos)
             {
                 Console.WriteLine($"{produto.Id} | {produto.Nome} | {produto.Categoria} | {produto.EstoqueMinimo} | {produto.Saldo} ");
