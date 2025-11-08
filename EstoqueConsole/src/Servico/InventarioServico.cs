@@ -69,5 +69,52 @@ namespace EstoqueConsole.src.Servico
             );
             return produto;
         }
+        public static void ExcluirProduto()
+        {
+            var produtos = ListarProduto();
+            if (produtos.Count == 0)
+            {
+                Console.WriteLine("Nenhum produto cadastrado!");
+                return;
+            }
+
+            Console.WriteLine("\n--- Lista de Produtos ---");
+            foreach (var p in produtos)
+            {
+                Console.WriteLine($"ID: {p.Id} | Nome: {p.Nome} | Categoria: {p.Categoria} | Estoque Mínimo: {p.EstoqueMinimo} | Saldo: {p.Saldo}");
+            }
+
+            Console.Write("\nDigite o ID do produto que deseja excluir: ");
+            if (!int.TryParse(Console.ReadLine(), out int idExclusao))
+            {
+                Console.WriteLine("ID inválido!");
+                return;
+            }
+
+            var produtoRemocao = produtos.FirstOrDefault(p => p.Id == idExclusao);
+            if (produtoRemocao == null)
+            {
+                Console.WriteLine("Produto não encontrado!");
+                return;
+            }
+
+            Console.Write($"Tem certeza que deseja excluir o produto \"{produtoRemocao.Nome}\"? (s/n): ");
+            var confirmacao = Console.ReadLine();
+            if (confirmacao?.ToLower() != "s")
+            {
+                Console.WriteLine("Exclusão cancelada.");
+                return;
+            }
+
+            produtos.Remove(produtoRemocao);
+
+            var linhas = new List<string> { "Id;Nome;Categoria;EstoqueMinimo;Saldo" };
+            foreach (var p in produtos)
+                linhas.Add($"{p.Id};{p.Nome};{p.Categoria};{p.EstoqueMinimo};{p.Saldo}");
+
+            File.WriteAllLines(_Path(), linhas, Encoding.UTF8);
+            Console.WriteLine("Produto excluído com sucesso!");
+        }
+
     }
 }
