@@ -69,6 +69,65 @@ namespace EstoqueConsole.src.Servico
             );
             return produto;
         }
+
+        public static void EditarProduto()
+        {
+            var produtos = ListarProduto();
+            if (produtos.Count == 0)
+            {
+                Console.WriteLine("Nenhum produto cadastrado!");
+                return;
+            }
+
+            Console.WriteLine("\n--- Lista de Produtos ---");
+            foreach (var p in produtos)
+                Console.WriteLine($"ID: {p.Id} | Nome: {p.Nome} | Categoria: {p.Categoria} | Estoque Mínimo: {p.EstoqueMinimo} | Saldo: {p.Saldo}");
+
+            Console.Write("\nDigite o ID do produto que deseja editar: ");
+            if (!int.TryParse(Console.ReadLine(), out int idEdicao))
+            {
+                Console.WriteLine("ID inválido!");
+                return;
+            }
+
+            var produtoEdicao = produtos.FirstOrDefault(p => p.Id == idEdicao);
+            if (produtoEdicao == null)
+            {
+                Console.WriteLine("Produto não encontrado!");
+                return;
+            }
+
+            Console.WriteLine($"\nEditando Produto: {produtoEdicao.Nome}");
+
+            Console.Write("Novo Nome (vazio mantém): ");
+            string novoNome = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(novoNome))
+                produtoEdicao.Nome = novoNome;
+
+            Console.Write("Nova Categoria (vazio mantém): ");
+            string novaCategoria = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(novaCategoria))
+                produtoEdicao.Categoria = novaCategoria;
+
+            Console.Write("Novo Estoque Mínimo (vazio mantém): ");
+            string novoEstoque = Console.ReadLine();
+            if (int.TryParse(novoEstoque, out int estoqueNovo))
+                produtoEdicao.EstoqueMinimo = estoqueNovo;
+
+            Console.Write("Novo Saldo (vazio mantém): ");
+            string novoSaldo = Console.ReadLine();
+            if (int.TryParse(novoSaldo, out int saldoNovo))
+                produtoEdicao.Saldo = saldoNovo;
+
+            var linhas = new List<string> { "Id;Nome;Categoria;EstoqueMinimo;Saldo" };
+            foreach (var p in produtos)
+                linhas.Add($"{p.Id};{p.Nome};{p.Categoria};{p.EstoqueMinimo};{p.Saldo}");
+
+            File.WriteAllLines(_Path(), linhas, Encoding.UTF8);
+
+            Console.WriteLine("\nProduto atualizado com sucesso!");
+        }
+
         public static void ExcluirProduto()
         {
             var produtos = ListarProduto();
@@ -112,8 +171,8 @@ namespace EstoqueConsole.src.Servico
             foreach (var p in produtos)
                 linhas.Add($"{p.Id};{p.Nome};{p.Categoria};{p.EstoqueMinimo};{p.Saldo}");
 
-            File.WriteAllLines(_Path(), linhas, Encoding.UTF8);
             Console.WriteLine("Produto excluído com sucesso!");
+            File.WriteAllLines(_Path(), linhas, Encoding.UTF8);
         }
 
     }

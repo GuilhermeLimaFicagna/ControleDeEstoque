@@ -7,12 +7,16 @@ Console.WriteLine("Guilherme de lima Ficagna - 2025105145");
 Console.WriteLine("Eduardo Lopes Barros dos Santos - 2025105015");
 
 // Produtos em RAM
-var produtos = Uteis.ListarProduto();
-int NextId() => produtos.Any() ? produtos.Max(c => c.Id) + 1 : 1; // Gera o proximo ID do produto
-
+int NextId()
+{
+    var listaAtual = Uteis.ListarProduto();
+    return listaAtual.Any() ? listaAtual.Max(c => c.Id) + 1 : 1;
+}
 
 while (true)
 {
+    var produtos = Uteis.ListarProduto();
+
     Console.WriteLine("1. Listar produtos");
     Console.WriteLine("2. Cadastrar produto");
     Console.WriteLine("3. Editar produto");
@@ -30,6 +34,7 @@ while (true)
     switch (op)
     {
         case "1":
+            produtos = Uteis.ListarProduto();
             Console.WriteLine();
 
             if (!produtos.Any())
@@ -81,14 +86,30 @@ while (true)
             break;
 
         case "2":
+            produtos = Uteis.ListarProduto();
             var novoProduto = Uteis.CriarProduto();
             novoProduto.Id = NextId(); // Definindo id
 
             // Adicionando a lista em RAM
             produtos.Add(novoProduto);
+
+            File.WriteAllLines(
+                Uteis._Path(),
+                new[] { "Id;Nome;Categoria;EstoqueMinimo;Saldo" }
+                .Concat(produtos.Select(p =>
+                    $"{p.Id};{p.Nome};{p.Categoria};{p.EstoqueMinimo};{p.Saldo}"
+                )), System.Text.Encoding.UTF8);
+
             Console.WriteLine($"Produto {novoProduto.Id} adicionado com sucesso !");
             Console.WriteLine();
             break;
+
+        case "3":
+            Uteis.EditarProduto();
+            produtos = Uteis.ListarProduto();
+            Console.WriteLine();
+            break;
+
         case "4":
             Uteis.ExcluirProduto();
             produtos = Uteis.ListarProduto(); // recarrega lista atualizada

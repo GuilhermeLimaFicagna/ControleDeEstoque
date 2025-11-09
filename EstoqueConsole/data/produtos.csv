@@ -1,5 +1,7 @@
-id;nome;categoria;estoqueMinimo;saldo;
-1;mouse;periférico;5;300;
-2;teclado;periférico;10;200;
-3;monitor;vídeo;20;100;
-4;ssd;armazenamento;20;120;
+﻿Id;Nome;Categoria;EstoqueMinimo;Saldo
+1;mouse;periférico;5;300
+2;teclado;periférico;10;200
+3;monitor;vídeo;20;100
+4;Edu;Pessoa;1;1
+5;Caixa de Som;Áudio;1;3
+6;Calendario;Utilitários;55;123
