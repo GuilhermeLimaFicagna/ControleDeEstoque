@@ -24,11 +24,11 @@ namespace EstoqueConsole.src.Servico
                 if (string.IsNullOrWhiteSpace(line)) continue;
                 var p = line.Split(';');
                 produtos.Add(new Produto(
-                    Id: int.Parse(p[0]),
-                    Nome: p[1],
-                    Categoria: p[2],
-                    EstoqueMinimo: int.Parse(p[3]),
-                    Saldo: int.Parse(p[4])
+                    id: int.Parse(p[0]),
+                    nome: p[1],
+                    categoria: p[2],
+                    estoqueMinimo: int.Parse(p[3]),
+                    saldo: int.Parse(p[4])
                 ));
             }
             return produtos;
@@ -61,18 +61,17 @@ namespace EstoqueConsole.src.Servico
 
             // Criando obj Produto para retornar
             var produto = new Produto(
-                Id: 0,
-                Nome: nome,
-                Categoria: categoria,
-                EstoqueMinimo: estoqueMinimo,
-                Saldo: saldo
+                id: 0,
+                nome: nome,
+                categoria: categoria,
+                estoqueMinimo: estoqueMinimo,
+                saldo: saldo
             );
             return produto;
         }
 
-        public static void EditarProduto()
+        public static void EditarProduto(List<Produto> produtos)
         {
-            var produtos = ListarProduto();
             if (produtos.Count == 0)
             {
                 Console.WriteLine("Nenhum produto cadastrado!");
@@ -128,9 +127,8 @@ namespace EstoqueConsole.src.Servico
             Console.WriteLine("\nProduto atualizado com sucesso!");
         }
 
-        public static void ExcluirProduto()
+        public static void ExcluirProduto(List<Produto> produtos)
         {
-            var produtos = ListarProduto();
             if (produtos.Count == 0)
             {
                 Console.WriteLine("Nenhum produto cadastrado!");

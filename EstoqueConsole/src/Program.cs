@@ -1,4 +1,5 @@
-﻿using EstoqueConsole.src.Modelo;
+﻿using System.Text;
+using EstoqueConsole.src.Modelo;
 using EstoqueConsole.src.Servico;
 
 Console.WriteLine("Integrantes: ");
@@ -12,11 +13,10 @@ int NextId()
     var listaAtual = Uteis.ListarProduto();
     return listaAtual.Any() ? listaAtual.Max(c => c.Id) + 1 : 1;
 }
+var produtos = Uteis.ListarProduto();
 
 while (true)
 {
-    var produtos = Uteis.ListarProduto();
-
     Console.WriteLine("1. Listar produtos");
     Console.WriteLine("2. Cadastrar produto");
     Console.WriteLine("3. Editar produto");
@@ -34,7 +34,6 @@ while (true)
     switch (op)
     {
         case "1":
-            produtos = Uteis.ListarProduto();
             Console.WriteLine();
 
             if (!produtos.Any())
@@ -86,7 +85,6 @@ while (true)
             break;
 
         case "2":
-            produtos = Uteis.ListarProduto();
             var novoProduto = Uteis.CriarProduto();
             novoProduto.Id = NextId(); // Definindo id
 
@@ -105,15 +103,25 @@ while (true)
             break;
 
         case "3":
-            Uteis.EditarProduto();
-            produtos = Uteis.ListarProduto();
+            Uteis.EditarProduto(produtos);
             Console.WriteLine();
             break;
 
         case "4":
-            Uteis.ExcluirProduto();
-            produtos = Uteis.ListarProduto(); // recarrega lista atualizada
+            Uteis.ExcluirProduto(produtos);
             Console.WriteLine();
+            break;
+
+        case "9":
+            File.WriteAllLines(
+                Uteis._Path(),
+                new[] { "Id;Nome;Categoria;EstoqueMinimo;Saldo" }
+                .Concat(produtos.Select(
+                    p => $"{p.Id}; {p.Nome}; {p.Categoria}; {p.EstoqueMinimo}; {p.Saldo}"
+                )), Encoding.UTF8
+            );
+
+            Console.WriteLine("\nDados salvos com sucesso!");
             break;
 
         case "0":

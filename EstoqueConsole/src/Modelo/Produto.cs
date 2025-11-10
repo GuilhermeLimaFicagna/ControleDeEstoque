@@ -1,9 +1,17 @@
-﻿namespace EstoqueConsole.src.Modelo;
+﻿public class Produto
+{
+    public int Id { get; set; }
+    public string Nome { get; set; }
+    public string Categoria { get; set; }
+    public int EstoqueMinimo { get; set; }
+    public int Saldo { get; set; }
 
-public record struct Produto(
-    int Id,
-    string Nome,
-    string Categoria,
-    int EstoqueMinimo,
-    int Saldo
-);
+    public Produto(int id, string nome, string categoria, int estoqueMinimo, int saldo)
+    {
+        Id = id;
+        Nome = nome;
+        Categoria = categoria;
+        EstoqueMinimo = estoqueMinimo;
+        Saldo = saldo;
+    }
+}
