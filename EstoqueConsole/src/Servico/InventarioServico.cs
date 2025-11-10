@@ -24,11 +24,11 @@ namespace EstoqueConsole.src.Servico
                 if (string.IsNullOrWhiteSpace(line)) continue;
                 var p = line.Split(';');
                 produtos.Add(new Produto(
-                    id: int.Parse(p[0]),
-                    nome: p[1],
-                    categoria: p[2],
-                    estoqueMinimo: int.Parse(p[3]),
-                    saldo: int.Parse(p[4])
+                    Id: int.Parse(p[0]),
+                    Nome: p[1],
+                    Categoria: p[2],
+                    EstoqueMinimo: int.Parse(p[3]),
+                    Saldo: int.Parse(p[4])
                 ));
             }
             return produtos;
@@ -61,14 +61,76 @@ namespace EstoqueConsole.src.Servico
 
             // Criando obj Produto para retornar
             var produto = new Produto(
-                id: 0,
-                nome: nome,
-                categoria: categoria,
-                estoqueMinimo: estoqueMinimo,
-                saldo: saldo
+                Id: 0,
+                Nome: nome,
+                Categoria: categoria,
+                EstoqueMinimo: estoqueMinimo,
+                Saldo: saldo
             );
             return produto;
         }
+        public static void EditarProduto(List<Produto> produtos)
+        {
+            Console.WriteLine("\n ** Produtos disponíveis para editar **");
+            ProdutosFormatados(produtos);
+
+            Console.Write("\nDigite o ID do produto que deseja editar: ");
+            if (!int.TryParse(Console.ReadLine(), out int idEdicao))
+            {
+                Console.WriteLine("ID inválido!");
+                return;
+            }
+            var produtoEdicao = produtos.FirstOrDefault(p => p.Id == idEdicao);
+            if (produtoEdicao == null)
+            {
+                Console.WriteLine("Produto não encontrado!");
+                return;
+            }
+            //Remove o Produto
+            produtos.Remove(produtoEdicao);
+
+            //Começa a Criação do Novo Produto (Falsa Alteração)
+            Console.WriteLine($"\nEditando Produto: {produtoEdicao.Nome}");
+
+            Console.Write("Novo Nome (vazio mantém): ");
+            string novoNome = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(novoNome))
+            {
+                produtoEdicao.Nome = novoNome;
+            }
+
+            Console.Write("Nova Categoria (vazio mantém): ");
+            string novaCategoria = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(novaCategoria))
+            {
+                produtoEdicao.Categoria = novaCategoria;
+            }
+
+            Console.Write("Novo Estoque Mínimo (vazio mantém): ");
+            string novoEstoque = Console.ReadLine();
+            if (int.TryParse(novoEstoque, out int estoqueNovo))
+            {
+                produtoEdicao.EstoqueMinimo = estoqueNovo;
+            }
+
+            Console.Write("Novo Saldo (vazio mantém): ");
+            string novoSaldo = Console.ReadLine();
+            if (int.TryParse(novoSaldo, out int saldoNovo))
+            {
+                produtoEdicao.Saldo = saldoNovo;
+            }
+
+            // Criando obj Produto para retornar
+            var produto = new Produto(
+                Id: 0,
+                Nome: novoNome,
+                Categoria: novaCategoria,
+                EstoqueMinimo: estoqueNovo,
+                Saldo: saldoNovo
+            );
+            produtos.Add(produto);
+        }
+
         public static void RemoverProduto(List<Produto> produtos)
         {
             if (!produtos.Any())
@@ -78,7 +140,7 @@ namespace EstoqueConsole.src.Servico
             }
 
             Console.WriteLine("\n ** Produtos disponíveis para exclusão **");
-            ProdutosFormatados(produtos); 
+            ProdutosFormatados(produtos);
 
             Console.Write("\nDigite o ID do produto que deseja excluir: ");
             if (!int.TryParse(Console.ReadLine(), out int idExclusao))
@@ -155,18 +217,18 @@ namespace EstoqueConsole.src.Servico
             Console.ResetColor();
         }
         public static void SalvarProdutos(List<Produto> produtos)
-        {
+        {
             try
             {
-                var stringb = new StringBuilder();
+                var stringb = new StringBuilder();
 
                 stringb.AppendLine("ID;Nome;Categoria;EstoqueMinimo;Saldo");
 
-                foreach (var p in produtos)
+                foreach (var p in produtos)
                 {
                     stringb.AppendLine($"{p.Id};{p.Nome};{p.Categoria};{p.EstoqueMinimo};{p.Saldo}");
                 }
-                File.WriteAllText(_Path(), stringb.ToString(), Encoding.UTF8);
+                File.WriteAllText(_Path(), stringb.ToString(), Encoding.UTF8);
 
                 Console.BackgroundColor = ConsoleColor.Green;
                 Console.ForegroundColor = ConsoleColor.Black;
@@ -181,5 +243,5 @@ namespace EstoqueConsole.src.Servico
                 Console.ResetColor();
             }
         }
-    }
+    }
 }
