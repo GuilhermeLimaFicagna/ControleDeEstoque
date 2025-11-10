@@ -1,5 +1,4 @@
-﻿Id;Nome;Categoria;EstoqueMinimo;Saldo
-1; Teclado Gamer; Periféricos; 34; 122
-2; Copo de Vidro Modelo Caveira Esculpida; Cozinha; 433; 490
-3; Notebook; Eletrônicos; 3; 7
-4; Garfo; Objeto; 1; 1
+﻿ID;Nome;Categoria;EstoqueMinimo;Saldo
+2;teclado;periférico;10;200
+3;monitor;vídeo;20;100
+4;ssd;armazenamento;20;120
