@@ -86,6 +86,9 @@ namespace EstoqueConsole.src.Servico
                 Console.WriteLine("Produto não encontrado!");
                 return;
             }
+
+            var salvarId = produtoEdicao.Id;
+
             //Remove o Produto
             produtos.Remove(produtoEdicao);
 
@@ -122,7 +125,7 @@ namespace EstoqueConsole.src.Servico
 
             // Criando obj Produto para retornar
             var produto = new Produto(
-                Id: 0,
+                Id: salvarId,
                 Nome: novoNome,
                 Categoria: novaCategoria,
                 EstoqueMinimo: estoqueNovo,

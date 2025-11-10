@@ -1,5 +1,8 @@
 ﻿ID;Nome;Categoria;EstoqueMinimo;Saldo
-2;teclado;periférico;10;200
-3;monitor;vídeo;20;100
-4;ssd;armazenamento;20;120
-6;Copo de Vidro Modelo Caveira Esculpida;Copo de Vidro;12;44
+8;Gui;Obj;1;1
+10;SSD;Perif;13;45
+11;Capacete;Norisk;134;666
+13;Professor Linguiça;Inútil;22;13
+0;Mousse de Limão;Comida;44;67
+9;Penis;Esstojo;13;44
+3;Monitor;Perif;12;33
