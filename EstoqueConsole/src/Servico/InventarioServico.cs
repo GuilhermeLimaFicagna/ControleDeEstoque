@@ -69,20 +69,16 @@ namespace EstoqueConsole.src.Servico
             );
             return produto;
         }
-        public static void ExcluirProduto()
+        public static void RemoverProdutoRAM(List<Produto> produtos)
         {
-            var produtos = ListarProduto();
-            if (produtos.Count == 0)
+            if (!produtos.Any())
             {
-                Console.WriteLine("Nenhum produto cadastrado!");
+                Console.WriteLine("Nenhum produto cadastrado para excluir.");
                 return;
             }
 
-            Console.WriteLine("\n--- Lista de Produtos ---");
-            foreach (var p in produtos)
-            {
-                Console.WriteLine($"ID: {p.Id} | Nome: {p.Nome} | Categoria: {p.Categoria} | Estoque Mínimo: {p.EstoqueMinimo} | Saldo: {p.Saldo}");
-            }
+            Console.WriteLine("\n ** Produtos disponíveis para exclusão **");
+            ProdutosFormatados(produtos); 
 
             Console.Write("\nDigite o ID do produto que deseja excluir: ");
             if (!int.TryParse(Console.ReadLine(), out int idExclusao))
@@ -90,7 +86,6 @@ namespace EstoqueConsole.src.Servico
                 Console.WriteLine("ID inválido!");
                 return;
             }
-
             var produtoRemocao = produtos.FirstOrDefault(p => p.Id == idExclusao);
             if (produtoRemocao == null)
             {
@@ -99,22 +94,65 @@ namespace EstoqueConsole.src.Servico
             }
 
             Console.Write($"Tem certeza que deseja excluir o produto \"{produtoRemocao.Nome}\"? (s/n): ");
-            var confirmacao = Console.ReadLine();
-            if (confirmacao?.ToLower() != "s")
+            var confirmacaoUsuario = Console.ReadLine();
+
+            if (confirmacaoUsuario?.ToLower() == "s")
+            {
+                produtos.Remove(produtoRemocao);
+                Console.WriteLine($"Produto \"{produtoRemocao.Nome}\" removido.");
+            }
+            else
             {
                 Console.WriteLine("Exclusão cancelada.");
+            }
+        }
+        public static void ProdutosFormatados(List<Produto> produtos)
+        {
+            if (!produtos.Any())
+            {
+                Console.WriteLine("Nenhum produto cadastrado.");
                 return;
             }
 
-            produtos.Remove(produtoRemocao);
+            int idWidth = Math.Max(2, produtos.Max(p => p.Id.ToString().Length));
+            int nomeWidth = Math.Max(4, produtos.Max(p => p.Nome.Length));
+            int categoriaWidth = Math.Max(9, produtos.Max(p => p.Categoria.Length));
+            int estoqueMinWidth = Math.Max(15, produtos.Max(p => p.EstoqueMinimo.ToString().Length + 2));
+            int saldoWidth = Math.Max(5, produtos.Max(p => p.Saldo.ToString().Length));
 
-            var linhas = new List<string> { "Id;Nome;Categoria;EstoqueMinimo;Saldo" };
-            foreach (var p in produtos)
-                linhas.Add($"{p.Id};{p.Nome};{p.Categoria};{p.EstoqueMinimo};{p.Saldo}");
+            string cabecalho =
+                "ID".PadRight(idWidth + 2) +
+                "NOME".PadRight(nomeWidth + 2) +
+                "CATEGORIA".PadRight(categoriaWidth + 2) +
+                "ESTOQUE MÍNIMO".PadRight(estoqueMinWidth + 2) +
+                "SALDO".PadRight(saldoWidth + 2);
 
-            File.WriteAllLines(_Path(), linhas, Encoding.UTF8);
-            Console.WriteLine("Produto excluído com sucesso!");
+            Console.BackgroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.Write(cabecalho);
+            Console.ResetColor();
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine(new string('─', cabecalho.Length));
+            Console.ResetColor();
+
+            foreach (var produto in produtos)
+            {
+                if (produto.Id % 2 == 0)
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                else
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                Console.WriteLine(
+                    produto.Id.ToString().PadRight(idWidth + 2) +
+                    produto.Nome.PadRight(nomeWidth + 2) +
+                    produto.Categoria.PadRight(categoriaWidth + 2) +
+                    produto.EstoqueMinimo.ToString().PadRight(estoqueMinWidth + 2) +
+                    produto.Saldo.ToString().PadRight(saldoWidth + 2));
+                Console.WriteLine();
+            }
+            Console.ResetColor();
         }
-
     }
 }
