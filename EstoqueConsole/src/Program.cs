@@ -48,6 +48,11 @@ while (true)
             Console.WriteLine();
             break;
 
+        case "9":
+            Uteis.SalvarProdutos(produtos);
+            Console.WriteLine();
+            break;
+
         case "0":
             Console.WriteLine("Volte sempre!");
             return;
