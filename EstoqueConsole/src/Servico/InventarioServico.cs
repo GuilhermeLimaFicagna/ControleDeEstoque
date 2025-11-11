@@ -80,6 +80,7 @@ namespace EstoqueConsole.src.Servico
                 Console.WriteLine("ID inválido!");
                 return;
             }
+
             var produtoEdicao = produtos.FirstOrDefault(p => p.Id == idEdicao);
             if (produtoEdicao == null)
             {
@@ -87,52 +88,72 @@ namespace EstoqueConsole.src.Servico
                 return;
             }
 
-            var salvarId = produtoEdicao.Id;
+            //Salva o Id do Produto para não substituí-lo
+            int salvarId = produtoEdicao.Id;
 
-            //Remove o Produto
+            //Remove o antifgo produto para substituição
             produtos.Remove(produtoEdicao);
 
-            //Começa a Criação do Novo Produto (Falsa Alteração)
             Console.WriteLine($"\nEditando Produto: {produtoEdicao.Nome}");
 
-            Console.Write("Novo Nome (vazio mantém): ");
-            string novoNome = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(novoNome))
+            //Novo Nome
+            string novoNome = "";
+            while (string.IsNullOrWhiteSpace(novoNome))
             {
-                produtoEdicao.Nome = novoNome;
+                Console.Write("Novo Nome: ");
+                novoNome = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(novoNome))
+                    Console.WriteLine("O nome não pode ser vazio!\n");
             }
 
-            Console.Write("Nova Categoria (vazio mantém): ");
-            string novaCategoria = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(novaCategoria))
+            //Nova Categoria
+            string novaCategoria = "";
+            while (string.IsNullOrWhiteSpace(novaCategoria))
             {
-                produtoEdicao.Categoria = novaCategoria;
+                Console.Write("Nova Categoria: ");
+                novaCategoria = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(novaCategoria))
+                    Console.WriteLine("A categoria não pode ser vazia!\n");
             }
 
-            Console.Write("Novo Estoque Mínimo (vazio mantém): ");
-            string novoEstoque = Console.ReadLine();
-            if (int.TryParse(novoEstoque, out int estoqueNovo))
+            //Novo Estoque
+            int novoEstoque;
+            while (true)
             {
-                produtoEdicao.EstoqueMinimo = estoqueNovo;
+                Console.Write("Novo Estoque Mínimo: ");
+                if (int.TryParse(Console.ReadLine(), out novoEstoque))
+                    break;
+
+                Console.WriteLine("Digite um número válido!\n");
             }
 
-            Console.Write("Novo Saldo (vazio mantém): ");
-            string novoSaldo = Console.ReadLine();
-            if (int.TryParse(novoSaldo, out int saldoNovo))
+            //Novo Saldo
+            int novoSaldo;
+            while (true)
             {
-                produtoEdicao.Saldo = saldoNovo;
+                Console.Write("Novo Saldo: ");
+                if (int.TryParse(Console.ReadLine(), out novoSaldo))
+                    break;
+
+                Console.WriteLine("Digite um número válido!\n");
             }
 
-            // Criando obj Produto para retornar
+            // Criando o novo produto
             var produto = new Produto(
                 Id: salvarId,
                 Nome: novoNome,
                 Categoria: novaCategoria,
-                EstoqueMinimo: estoqueNovo,
-                Saldo: saldoNovo
+                EstoqueMinimo: novoEstoque,
+                Saldo: novoSaldo
             );
+
             produtos.Add(produto);
+
+            Console.WriteLine("\nProduto atualizado com sucesso!");
         }
+
 
         public static void RemoverProduto(List<Produto> produtos)
         {
