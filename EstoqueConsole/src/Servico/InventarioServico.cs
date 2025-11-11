@@ -15,7 +15,7 @@ namespace EstoqueConsole.src.Servico
             return path;
         }
 
-        // Lista os produtos dentro do .csv
+        // Lista os Produtos dentro do .csv
         public static List<Produto> ListarProduto()
         {
             var produtos = new List<Produto>();
@@ -34,20 +34,41 @@ namespace EstoqueConsole.src.Servico
             return produtos;
         }
 
-        // Cria produto 
+        // Cria Produto 
         public static Produto CriarProduto()
         {
-            Console.Write("Nome do produto: ");
-            var nome = Console.ReadLine();
+            // Nome
+            string nome = "";
+            while (string.IsNullOrWhiteSpace(nome))
+            {
+                Console.Write("Nome do produto: ");
+                nome = Console.ReadLine();
 
-            Console.Write("Categoria do produto: ");
-            var categoria = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(nome))
+                    Console.WriteLine("O nome não pode ser vazio!\n");
+            }
 
+            // Categoria
+            string categoria = "";
+            while (string.IsNullOrWhiteSpace(categoria))
+            {
+                Console.Write("Nome da Categoria: ");
+                categoria = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(categoria))
+                    Console.WriteLine("A categoria não pode ser vazia!\n");
+            }
+
+            // Estoque minimo
             int estoqueMinimo;
             while (true)
             {
                 Console.Write("Estoque Mínimo do produto: ");
-                estoqueMinimo = int.Parse(Console.ReadLine());
+                if (!int.TryParse(Console.ReadLine(), out estoqueMinimo))
+                {
+                    Console.WriteLine("Digite um número válido!\n");
+                    continue;
+                }
                 if (estoqueMinimo < 0)
                 {
                     Console.WriteLine("Estoque Mínimo não pode ser menor que zero!");
@@ -56,8 +77,16 @@ namespace EstoqueConsole.src.Servico
                 break;
             }
 
-            Console.Write("Saldo do produto: ");
-            var saldo = int.Parse(Console.ReadLine());
+            // Saldo
+            int saldo;
+            while (true)
+            {
+                Console.Write("Novo Saldo: ");
+                if (int.TryParse(Console.ReadLine(), out saldo))
+                    break;
+
+                Console.WriteLine("Digite um número válido!\n");
+            }
 
             // Criando obj Produto para retornar
             var produto = new Produto(
@@ -69,6 +98,7 @@ namespace EstoqueConsole.src.Servico
             );
             return produto;
         }
+        // Edita Produto
         public static void EditarProduto(List<Produto> produtos)
         {
             Console.WriteLine("\n ** Produtos disponíveis para editar **");
@@ -123,10 +153,17 @@ namespace EstoqueConsole.src.Servico
             while (true)
             {
                 Console.Write("Novo Estoque Mínimo: ");
-                if (int.TryParse(Console.ReadLine(), out novoEstoque))
-                    break;
-
-                Console.WriteLine("Digite um número válido!\n");
+                if (!int.TryParse(Console.ReadLine(), out novoEstoque))
+                {
+                    Console.WriteLine("Digite um número válido!\n");
+                    continue;
+                }
+                if (novoEstoque < 0)
+                {
+                    Console.WriteLine("Estoque Mínimo não pode ser menor que zero!");
+                    continue;
+                }
+                break;
             }
 
             //Novo Saldo
@@ -153,8 +190,7 @@ namespace EstoqueConsole.src.Servico
 
             Console.WriteLine("\nProduto atualizado com sucesso!");
         }
-
-
+        // Remove Produto
         public static void RemoverProduto(List<Produto> produtos)
         {
             if (!produtos.Any())
@@ -192,6 +228,7 @@ namespace EstoqueConsole.src.Servico
                 Console.WriteLine("Exclusão cancelada.");
             }
         }
+        // Formatação para exibir Produtos na tela 
         public static void ProdutosFormatados(List<Produto> produtos)
         {
             if (!produtos.Any())
@@ -240,6 +277,7 @@ namespace EstoqueConsole.src.Servico
             }
             Console.ResetColor();
         }
+        // Salvar Produtos em Ram no produtos.csv
         public static void SalvarProdutos(List<Produto> produtos)
         {
             try

@@ -1,8 +1,7 @@
 ﻿ID;Nome;Categoria;EstoqueMinimo;Saldo
-8;Gui;Obj;1;1
 10;SSD;Perif;13;45
 11;Capacete;Norisk;134;666
-13;Professor Linguiça;Inútil;22;13
-0;Mousse de Limão;Comida;44;67
 3;Monitor;Perif;12;33
 9;Pincel;Arte;34;55
+14;Fone;periferico;12;111
+15;Teste;Testando;12;2
