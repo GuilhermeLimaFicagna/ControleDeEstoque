@@ -69,7 +69,7 @@ namespace EstoqueConsole.src.Servico
                     Console.WriteLine("Digite um número válido!\n");
                     continue;
                 }
-                if (estoqueMinimo < 0)
+                if (estoqueMinimo < 0) // Regra de Negócio
                 {
                     Console.WriteLine("Estoque Mínimo não pode ser menor que zero!");
                     continue;
@@ -134,7 +134,9 @@ namespace EstoqueConsole.src.Servico
                 novoNome = Console.ReadLine();
 
                 if (string.IsNullOrWhiteSpace(novoNome))
+                {
                     Console.WriteLine("O nome não pode ser vazio!\n");
+                }
             }
 
             //Nova Categoria
@@ -158,7 +160,7 @@ namespace EstoqueConsole.src.Servico
                     Console.WriteLine("Digite um número válido!\n");
                     continue;
                 }
-                if (novoEstoque < 0)
+                if (novoEstoque < 0) // Regra de Negócio
                 {
                     Console.WriteLine("Estoque Mínimo não pode ser menor que zero!");
                     continue;
@@ -171,8 +173,10 @@ namespace EstoqueConsole.src.Servico
             while (true)
             {
                 Console.Write("Novo Saldo: ");
-                if (int.TryParse(Console.ReadLine(), out novoSaldo))
+                if (int.TryParse(Console.ReadLine(), out novoSaldo)) 
+                {
                     break;
+                }
 
                 Console.WriteLine("Digite um número válido!\n");
             }
@@ -212,6 +216,15 @@ namespace EstoqueConsole.src.Servico
             if (produtoRemocao == null || !produtos.Any(p => p.Id == idExclusao))
             {
                 Console.WriteLine("Produto não encontrado!");
+                return;
+            }
+
+            // Regra de Negócio
+            int verificarSaldo = produtoRemocao.Saldo;
+
+            if(verificarSaldo < 0)
+            {
+                Console.WriteLine("\nNão é possível remover um produto com saldo negativo!");
                 return;
             }
 
