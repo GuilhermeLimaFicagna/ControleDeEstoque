@@ -112,7 +112,7 @@ namespace EstoqueConsole.src.Servico
             }
 
             var produtoEdicao = produtos.FirstOrDefault(p => p.Id == idEdicao);
-            if (produtoEdicao == null)
+            if (produtoEdicao == null || !produtos.Any(p => p.Id == idEdicao))
             {
                 Console.WriteLine("Produto não encontrado!");
                 return;
@@ -121,7 +121,7 @@ namespace EstoqueConsole.src.Servico
             //Salva o Id do Produto para não substituí-lo
             int salvarId = produtoEdicao.Id;
 
-            //Remove o antifgo produto para substituição
+            //Remove o antigo produto para substituição
             produtos.Remove(produtoEdicao);
 
             Console.WriteLine($"\nEditando Produto: {produtoEdicao.Nome}");
@@ -209,7 +209,7 @@ namespace EstoqueConsole.src.Servico
                 return;
             }
             var produtoRemocao = produtos.FirstOrDefault(p => p.Id == idExclusao);
-            if (produtoRemocao == null)
+            if (produtoRemocao == null || !produtos.Any(p => p.Id == idExclusao))
             {
                 Console.WriteLine("Produto não encontrado!");
                 return;
