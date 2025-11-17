@@ -56,7 +56,7 @@ while (true)
             break;
 
         case "9":
-            Uteis.SalvarProdutos(produtos);
+            Armazenamento.SalvarProdutos(produtos);
             Console.WriteLine();
             Console.WriteLine("\nDados salvos com sucesso!");
             break;
