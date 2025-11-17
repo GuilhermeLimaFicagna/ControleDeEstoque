@@ -33,5 +33,11 @@ namespace EstoqueConsole.src.Servico
                 Console.ResetColor();
             }
         }
+
+        // Salvar Movimentos em Ram no movimentos.csv
+        public static void SalvarMovimentos()
+        {
+            // Em construção
+        }
     }
 }

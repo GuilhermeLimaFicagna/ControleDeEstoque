@@ -9,6 +9,7 @@ Console.WriteLine("Eduardo Lopes Barros dos Santos - 2025105015");
 
 // Produtos em RAM
 var produtos = Uteis.ListarProduto();
+var movimentos = Uteis.ListarMovimentos();
 int NextId() => produtos.Any() ? produtos.Max(c => c.Id) + 1 : 1;
 
 while (true)

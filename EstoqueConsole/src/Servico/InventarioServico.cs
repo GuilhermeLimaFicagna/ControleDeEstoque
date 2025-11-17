@@ -5,7 +5,8 @@ namespace EstoqueConsole.src.Servico
 {
     public class Uteis
     {
-        public static string _Path() // Pega o caminho do arquivo.csv independente do computador
+        // =========== MÉTODOS PRODUTO ============  //
+        public static string _Path() // Pega o caminho do produtos.csv independente do computador
         {
             // Tratamento do Path
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
@@ -21,7 +22,7 @@ namespace EstoqueConsole.src.Servico
             var produtos = new List<Produto>();
             foreach (var line in File.ReadAllLines(_Path(), Encoding.UTF8).Skip(1))
             {
-                if (string.IsNullOrWhiteSpace(line)) continue;
+                if (string.IsNullOrWhiteSpace(line)) continue; // Verificação
                 var p = line.Split(';');
                 produtos.Add(new Produto(
                     Id: int.Parse(p[0]),
@@ -289,6 +290,35 @@ namespace EstoqueConsole.src.Servico
                 Console.WriteLine();
             }
             Console.ResetColor();
+        }
+
+        // =========== MÉTODOS MOVIMENTO ============  //
+        public static string _PathMovimento() // Pega o caminho do movimentos.csv independente do computador
+        {
+            // Tratamento do Path
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string projectDir = Directory.GetParent(baseDir)!.Parent!.Parent!.Parent!.FullName;
+            string path = Path.Combine(projectDir, "data\\movimentos.csv");
+
+            return path;
+        }
+        public static List<Movimento> ListarMovimentos()
+        {
+            var movimentos = new List<Movimento>();
+            foreach (var line in File.ReadAllLines(_PathMovimento(), Encoding.UTF8).Skip(1))
+            {
+                if (string.IsNullOrWhiteSpace(line)) continue; // verificação
+                var m = line.Split(';');
+                movimentos.Add(new Movimento(
+                    Id: int.Parse(m[0]),
+                    ProdutoId: int.Parse(m[1]),
+                    Tipo: m[2],
+                    Quantidade: int.Parse(m[3]),
+                    Data: DateTime.Parse(m[4]),
+                    Observacao: m[5]
+                ));
+            }
+            return movimentos;
         }
     }
 }
