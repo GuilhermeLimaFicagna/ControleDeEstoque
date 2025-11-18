@@ -34,7 +34,6 @@ namespace EstoqueConsole.src.Servico
             }
             return produtos;
         }
-
         // Cria Produto 
         public static Produto CriarProduto()
         {
@@ -302,6 +301,8 @@ namespace EstoqueConsole.src.Servico
 
             return path;
         }
+
+        // Lista os Movimentos dentro do .csv
         public static List<Movimento> ListarMovimentos()
         {
             var movimentos = new List<Movimento>();
@@ -319,6 +320,60 @@ namespace EstoqueConsole.src.Servico
                 ));
             }
             return movimentos;
+        }
+        // Dando entrada em produto e adicionando em movimento
+        public static void EntradaProduto(List<Produto> produtos, List<Movimento> movimentos)
+        {
+            Console.WriteLine("\n ** Produtos disponíveis para dar entrada **");
+            ProdutosFormatados(produtos);
+
+            Console.Write("\nDigite o ID do produto que deseja dar entrada: ");
+            if (!int.TryParse(Console.ReadLine(), out int idEntrada))
+            {
+                Console.WriteLine("ID inválido!");
+                return;
+            }
+
+            var produtoEntrada = produtos.FirstOrDefault(p => p.Id == idEntrada);
+            if (produtoEntrada == null || !produtos.Any(p => p.Id == idEntrada))
+            {
+                Console.WriteLine("Produto não encontrado!");
+                return;
+            }
+
+            // Dando entrada no saldo
+            Console.WriteLine($"Saldo atual do produto {produtoEntrada.Nome}: {produtoEntrada.Saldo}");
+            int entradaSaldo;
+            Produto produtoAtualizado; // Armazenando item atualizado para pegar id depois.
+            while (true)
+            {
+                Console.Write($"Digiete o valor de entrada de {produtoEntrada.Nome}: ");
+                if (int.TryParse(Console.ReadLine(), out entradaSaldo))
+                {
+                    int indiceProduto = produtos.FindIndex(p => p.Id == idEntrada); // Encontrando índice na lista de Produtos
+
+                    // Criando nova instância para atualizar
+                    produtoAtualizado = produtoEntrada with{ Saldo = produtoEntrada.Saldo + entradaSaldo };
+                    produtos[indiceProduto] = produtoAtualizado;
+
+                    Console.WriteLine($"Saldo de {produtoEntrada.Nome} atualizado para: {produtoAtualizado.Saldo}");
+                    break;
+                }
+
+                Console.WriteLine("Digite um número válido!\n");
+            }
+
+            // Adicionando movimento a variável movimentos
+
+            int NextIdM() => movimentos.Any() ? movimentos.Max(c => c.Id) + 1 : 1; // adicionando id do movimento
+            movimentos.Add(new Movimento(
+                Id: NextIdM(),
+                ProdutoId: produtoAtualizado.Id,
+                Tipo: "ENTRADA",
+                Quantidade: entradaSaldo,
+                Data: DateTime.Now,
+                Observacao: "Entrada em estoque"
+            ));
         }
     }
 }

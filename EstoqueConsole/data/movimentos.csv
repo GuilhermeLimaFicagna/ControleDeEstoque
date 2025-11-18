@@ -1,0 +1,4 @@
+id;produtoId;tipo;quantidade;data;observacao
+1;2;ENTRADA;10;17/11/2025 21:15:23;test
+2;7;SAIDA;30;17/11/2025 21:20:46;testando
+3;3;SAIDA;30;17/11/2025 21:40:00;testando outra vez

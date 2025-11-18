@@ -56,6 +56,11 @@ while (true)
             Console.WriteLine();
             break;
 
+        case "5":
+            Uteis.EntradaProduto(produtos, movimentos);
+            Console.WriteLine();
+            break;
+
         case "9":
             Armazenamento.SalvarProdutos(produtos);
             Console.WriteLine();
@@ -63,6 +68,7 @@ while (true)
             break;
 
         case "0":
+            // Colocar opção de se deseja salvar as alterações ou não
             Console.WriteLine("Volte sempre!");
             return;
         default:
