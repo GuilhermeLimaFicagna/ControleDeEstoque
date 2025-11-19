@@ -1,6 +1,4 @@
-﻿using System.Text;
-using EstoqueConsole.src.Modelo;
-using EstoqueConsole.src.Servico;
+﻿using EstoqueConsole.src.Servico;
 
 Console.WriteLine("Integrantes: ");
 Console.WriteLine("Cleberson Cesar Bueno dos Santos - 2025105040");

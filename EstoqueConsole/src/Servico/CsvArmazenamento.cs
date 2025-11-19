@@ -37,6 +37,9 @@ namespace EstoqueConsole.src.Servico
         // Salvar Movimentos em Ram no movimentos.csv
         public static void SalvarMovimentos(List<Movimento> movimentos)
         {
+            // Variável para escrita atômica
+            var path = Uteis._PathMovimento();
+            var tempPath = path + ".tmp";
             try
             {
                 var stringb = new StringBuilder();
@@ -47,7 +50,9 @@ namespace EstoqueConsole.src.Servico
                 {
                     stringb.AppendLine($"{m.Id};{m.ProdutoId};{m.Tipo};{m.Quantidade};{m.Data};{m.Observacao}");
                 }
-                File.WriteAllText(Uteis._PathMovimento(), stringb.ToString(), Encoding.UTF8);
+                // Escreve em arquivo temporário e depois move para o .csv
+                File.WriteAllText(tempPath, stringb.ToString(), Encoding.UTF8);
+                File.Move(tempPath, path, true);
 
                 Console.BackgroundColor = ConsoleColor.Green;
                 Console.ForegroundColor = ConsoleColor.Black;
