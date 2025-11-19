@@ -347,7 +347,7 @@ namespace EstoqueConsole.src.Servico
             Produto produtoAtualizado; // Armazenando item atualizado para pegar id depois.
             while (true)
             {
-                Console.Write($"Digiete o valor de entrada de {produtoEntrada.Nome}: ");
+                Console.Write($"Digite o valor de entrada de {produtoEntrada.Nome}: ");
                 if (int.TryParse(Console.ReadLine(), out entradaSaldo))
                 {
                     int indiceProduto = produtos.FindIndex(p => p.Id == idEntrada); // Encontrando índice na lista de Produtos
@@ -373,6 +373,60 @@ namespace EstoqueConsole.src.Servico
                 Quantidade: entradaSaldo,
                 Data: DateTime.Now,
                 Observacao: "Entrada em estoque"
+            ));
+        }
+        // Dando saída em produto e adicionando em movimento
+        public static void SaidaProduto(List<Produto> produtos, List<Movimento> movimentos)
+        {
+            Console.WriteLine("\n ** Produtos disponíveis para dar Saída **");
+            ProdutosFormatados(produtos);
+
+            Console.Write("\nDigite o ID do produto que deseja dar Saída: ");
+            if (!int.TryParse(Console.ReadLine(), out int idEntrada))
+            {
+                Console.WriteLine("ID inválido!");
+                return;
+            }
+
+            var produtoEntrada = produtos.FirstOrDefault(p => p.Id == idEntrada);
+            if (produtoEntrada == null || !produtos.Any(p => p.Id == idEntrada))
+            {
+                Console.WriteLine("Produto não encontrado!");
+                return;
+            }
+
+            // Dando entrada no saldo
+            Console.WriteLine($"Saldo atual do produto {produtoEntrada.Nome}: {produtoEntrada.Saldo}");
+            int entradaSaldo;
+            Produto produtoAtualizado; // Armazenando item atualizado para pegar id depois.
+            while (true)
+            {
+                Console.Write($"Digite o valor de saída de {produtoEntrada.Nome}: ");
+                if (int.TryParse(Console.ReadLine(), out entradaSaldo))
+                {
+                    int indiceProduto = produtos.FindIndex(p => p.Id == idEntrada); // Encontrando índice na lista de Produtos
+
+                    // Criando nova instância para atualizar
+                    produtoAtualizado = produtoEntrada with { Saldo = produtoEntrada.Saldo - entradaSaldo };
+                    produtos[indiceProduto] = produtoAtualizado;
+
+                    Console.WriteLine($"Saldo de {produtoEntrada.Nome} atualizado para: {produtoAtualizado.Saldo}");
+                    break;
+                }
+
+                Console.WriteLine("Digite um número válido!\n");
+            }
+
+            // Adicionando movimento a variável movimentos
+
+            int NextIdM() => movimentos.Any() ? movimentos.Max(c => c.Id) + 1 : 1; // adicionando id do movimento
+            movimentos.Add(new Movimento(
+                Id: NextIdM(),
+                ProdutoId: produtoAtualizado.Id,
+                Tipo: "SAIDA",
+                Quantidade: entradaSaldo,
+                Data: DateTime.Now,
+                Observacao: "Saída do estoque"
             ));
         }
     }

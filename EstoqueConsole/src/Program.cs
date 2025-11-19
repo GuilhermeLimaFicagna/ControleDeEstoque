@@ -12,9 +12,10 @@ var produtos = Uteis.ListarProduto();
 var movimentos = Uteis.ListarMovimentos();
 int NextId() => produtos.Any() ? produtos.Max(c => c.Id) + 1 : 1;
 
+int salvo = 0; // Verificação para salvar dados
+
 while (true)
 {
-
     Console.WriteLine("1. Listar produtos");
     Console.WriteLine("2. Cadastrar produto");
     Console.WriteLine("3. Editar produto");
@@ -28,7 +29,7 @@ while (true)
     Console.Write("Opção: ");
     var op = Console.ReadLine();
     Console.WriteLine(); // Estética
-
+    
     switch (op)
     {
         case "1":
@@ -61,16 +62,42 @@ while (true)
             Console.WriteLine();
             break;
 
+        case "6":
+            Uteis.SaidaProduto(produtos, movimentos);
+            Console.WriteLine();
+            break;
+
         case "9":
             Armazenamento.SalvarProdutos(produtos);
+            salvo = 1; // está salvo
             Console.WriteLine();
             Console.WriteLine("\nDados salvos com sucesso!");
             break;
 
         case "0":
-            // Colocar opção de se deseja salvar as alterações ou não
-            Console.WriteLine("Volte sempre!");
-            return;
+            if (salvo == 0)
+            {
+                Console.Write("Deseja salvar alterações? (s/n) ");
+                var sair = Console.ReadLine();
+                if (sair.ToLower() == "n")
+                {
+                    Console.WriteLine("Volte sempre!");
+                    return;
+                }
+                else
+                {
+                    Armazenamento.SalvarProdutos(produtos);
+                    Console.WriteLine();
+                    Console.WriteLine("\nDados salvos com sucesso!");
+                    return;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Volte sempre!");
+                return;
+            }
+
         default:
             Console.WriteLine("Opção invalida!");
             break;
