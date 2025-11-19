@@ -395,7 +395,7 @@ namespace EstoqueConsole.src.Servico
                 return;
             }
 
-            // Dando entrada no saldo
+            // Dando saída no saldo
             Console.WriteLine($"Saldo atual do produto {produtoEntrada.Nome}: {produtoEntrada.Saldo}");
             int entradaSaldo;
             Produto produtoAtualizado; // Armazenando item atualizado para pegar id depois.
@@ -404,6 +404,12 @@ namespace EstoqueConsole.src.Servico
                 Console.Write($"Digite o valor de saída de {produtoEntrada.Nome}: ");
                 if (int.TryParse(Console.ReadLine(), out entradaSaldo))
                 {
+                    // Regra de negócio
+                    if (produtoEntrada.Saldo < entradaSaldo)
+                    {
+                        Console.WriteLine("Quantidade maior que o saldo !!!");
+                        continue;
+                    }
                     int indiceProduto = produtos.FindIndex(p => p.Id == idEntrada); // Encontrando índice na lista de Produtos
 
                     // Criando nova instância para atualizar
@@ -418,7 +424,6 @@ namespace EstoqueConsole.src.Servico
             }
 
             // Adicionando movimento a variável movimentos
-
             int NextIdM() => movimentos.Any() ? movimentos.Max(c => c.Id) + 1 : 1; // adicionando id do movimento
             movimentos.Add(new Movimento(
                 Id: NextIdM(),

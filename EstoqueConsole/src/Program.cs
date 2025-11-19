@@ -12,7 +12,7 @@ var produtos = Uteis.ListarProduto();
 var movimentos = Uteis.ListarMovimentos();
 int NextId() => produtos.Any() ? produtos.Max(c => c.Id) + 1 : 1;
 
-int salvo = 0; // Verificação para salvar dados
+int salvo = 0; // Verificação para salvar dados (0 = não Salvo | 1 = Salvo)
 
 while (true)
 {
@@ -70,7 +70,7 @@ while (true)
         case "9":
             Armazenamento.SalvarProdutos(produtos);
             Armazenamento.SalvarMovimentos(movimentos);
-            salvo = 1; // está salvo
+            salvo = 1; // Salvo
             Console.WriteLine();
             Console.WriteLine("\nDados salvos com sucesso!");
             break;
