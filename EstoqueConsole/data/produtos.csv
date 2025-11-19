@@ -1,8 +1,8 @@
 ﻿ID;Nome;Categoria;EstoqueMinimo;Saldo
 10;SSD;Perif;13;45
-11;Capacete;Norisk;134;666
-3;Monitor;Perif;12;33
-9;Pincel;Arte;34;55
+11;Capacete;Norisk;134;999
+3;Monitor;Perif;12;50
+9;Pincel;Arte;34;50
 14;Fone;periferico;12;100
-15;Teste;Testando;12;10
-16;test;testando;12;2
+15;Boneca;Brinquedo;30;67
+16;Carrinho;Brinquedo;10;20

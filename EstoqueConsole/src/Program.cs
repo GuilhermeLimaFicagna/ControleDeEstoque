@@ -69,6 +69,7 @@ while (true)
 
         case "9":
             Armazenamento.SalvarProdutos(produtos);
+            Armazenamento.SalvarMovimentos(movimentos);
             salvo = 1; // está salvo
             Console.WriteLine();
             Console.WriteLine("\nDados salvos com sucesso!");
@@ -87,6 +88,7 @@ while (true)
                 else
                 {
                     Armazenamento.SalvarProdutos(produtos);
+                    Armazenamento.SalvarMovimentos(movimentos);
                     Console.WriteLine();
                     Console.WriteLine("\nDados salvos com sucesso!");
                     return;

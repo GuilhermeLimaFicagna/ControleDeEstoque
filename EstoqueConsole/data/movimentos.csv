@@ -1,4 +1,9 @@
-id;produtoId;tipo;quantidade;data;observacao
+﻿id;produtoId;tipo;quantidade;data;observacao
 1;2;ENTRADA;10;17/11/2025 21:15:23;test
 2;7;SAIDA;30;17/11/2025 21:20:46;testando
 3;3;SAIDA;30;17/11/2025 21:40:00;testando outra vez
+4;3;ENTRADA;7;18/11/2025 23:19:42;Entrada em estoque
+5;3;ENTRADA;10;18/11/2025 23:20:15;Entrada em estoque
+6;9;SAIDA;5;18/11/2025 23:20:53;Saída do estoque
+7;11;SAIDA;333;18/11/2025 23:25:22;Saída do estoque
+8;11;ENTRADA;666;18/11/2025 23:25:42;Entrada em estoque
