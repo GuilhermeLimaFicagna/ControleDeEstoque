@@ -66,10 +66,7 @@ while (true)
             break;
 
         case "8":
-            Uteis.ProdutosFormatados(produtos);
-            Console.Write("Digite o ID do produto: ");
-            int produtoId = int.Parse(Console.ReadLine());
-            Uteis.ExtratoProduto(produtoId, produtos, movimentos);
+            Uteis.ExtratoProduto(0, produtos, movimentos);
             break;
 
         case "9":
