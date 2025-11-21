@@ -173,7 +173,7 @@ namespace EstoqueConsole.src.Servico
             while (true)
             {
                 Console.Write("Novo Saldo: ");
-                if (int.TryParse(Console.ReadLine(), out novoSaldo)) 
+                if (int.TryParse(Console.ReadLine(), out novoSaldo))
                 {
                     break;
                 }
@@ -222,7 +222,7 @@ namespace EstoqueConsole.src.Servico
             // Regra de Negócio
             int verificarSaldo = produtoRemocao.Saldo;
 
-            if(verificarSaldo < 0)
+            if (verificarSaldo < 0)
             {
                 Console.WriteLine("\nNão é possível remover um produto com saldo negativo!");
                 return;
@@ -353,7 +353,7 @@ namespace EstoqueConsole.src.Servico
                     int indiceProduto = produtos.FindIndex(p => p.Id == idEntrada); // Encontrando índice na lista de Produtos
 
                     // Criando nova instância para atualizar
-                    produtoAtualizado = produtoEntrada with{ Saldo = produtoEntrada.Saldo + entradaSaldo };
+                    produtoAtualizado = produtoEntrada with { Saldo = produtoEntrada.Saldo + entradaSaldo };
                     produtos[indiceProduto] = produtoAtualizado;
 
                     Console.WriteLine($"Saldo de {produtoEntrada.Nome} atualizado para: {produtoAtualizado.Saldo}");
@@ -433,6 +433,105 @@ namespace EstoqueConsole.src.Servico
                 Data: DateTime.Now,
                 Observacao: "Saída do estoque"
             ));
+        }
+
+        public static void ExtratoProduto(int produtoId, List<Produto> produtos, List<Movimento> movimentos)
+        {
+            Console.WriteLine("\n===== EXTRATO =====\n");
+
+            if (!produtos.Any())
+            {
+                Console.WriteLine("Nenhum produto cadastrado!");
+                return;
+            }
+
+            // Id como parâmetro do método
+            var produto = produtos.FirstOrDefault(p => p.Id == produtoId);
+
+            if (produto == null || string.IsNullOrWhiteSpace(produto.Nome))
+            {
+                Console.WriteLine("Produto não encontrado!\n");
+                return;
+            }
+
+            // Filtra movimentos do produto pela data
+            var ordemMovimento = movimentos
+                .Where(m => m.ProdutoId == produtoId)
+                .OrderBy(m => m.Data)
+                .ToList();
+
+            if (!ordemMovimento.Any())
+            {
+                Console.WriteLine("Nenhum movimento encontrado para este produto.\n");
+                return;
+            }
+
+            Console.WriteLine($"\nProduto: {produto.Nome}");
+            Console.WriteLine($"Categoria: {produto.Categoria}");
+            Console.WriteLine($"Saldo atual: {produto.Saldo}\n");
+
+            // Ajuste das colunas e cores igual ao método da formatação
+            int dataWidth = 20;
+            int tipoWidth = Math.Max(5, ordemMovimento.Max(m => m.Tipo.Length));
+            int qtdWidth = Math.Max(3, ordemMovimento.Max(m => m.Quantidade.ToString().Length));
+            int obsWidth = Math.Max(10, ordemMovimento.Max(m => m.Observacao.Length));
+
+            string cabecalho =
+                "DATA".PadRight(dataWidth + 2) +
+                "TIPO".PadRight(tipoWidth + 2) +
+                "QTD".PadRight(qtdWidth + 2) +
+                "OBSERVAÇÃO".PadRight(obsWidth + 2);
+
+            Console.BackgroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.Write(cabecalho);
+            Console.ResetColor();
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine(new string('─', cabecalho.Length));
+            Console.ResetColor();
+
+            foreach (var mov in ordemMovimento)
+            {
+                string linhaTexto =
+                    mov.Data.ToString("dd/MM/yyyy HH:mm").PadRight(dataWidth + 2) +
+                    mov.Tipo.PadRight(tipoWidth + 2) +
+                    mov.Quantidade.ToString().PadRight(qtdWidth + 2) +
+                    mov.Observacao.PadRight(obsWidth + 2);
+
+                // Cor para Entrada
+                if (mov.Tipo == "ENTRADA")
+                {
+                    Console.BackgroundColor = ConsoleColor.Green;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                }
+                // Cor para Saída
+                else
+                {
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                }
+
+                // Escreve texto colorido
+                Console.Write(linhaTexto);
+
+                // Resetar cor
+                Console.ResetColor();
+
+                // Completa o resto da linha com espaços
+                int restante = Console.WindowWidth - linhaTexto.Length;
+                if (restante > 0)
+                {
+                    Console.Write(new string(' ', restante));
+                }
+
+                Console.WriteLine();
+                Console.WriteLine();
+            }
+
+            Console.ResetColor();
+            Console.WriteLine("\n===== FIM DO EXTRATO =====\n");
         }
     }
 }

@@ -10,3 +10,7 @@
 9;10;SAIDA;5;19/11/2025 17:19:42;Saída do estoque
 10;16;ENTRADA;10;19/11/2025 17:20:32;Entrada em estoque
 11;9;ENTRADA;15;19/11/2025 17:27:44;Entrada em estoque
+12;17;ENTRADA;50;21/11/2025 17:59:26;Entrada em estoque
+13;17;SAIDA;100;21/11/2025 17:59:37;Saída do estoque
+14;17;SAIDA;23;21/11/2025 18:01:14;Saída do estoque
+15;17;ENTRADA;22;21/11/2025 18:40:23;Entrada em estoque

@@ -27,7 +27,7 @@ while (true)
     Console.Write("Opção: ");
     var op = Console.ReadLine();
     Console.WriteLine(); // Estética
-    
+
     switch (op)
     {
         case "1":
@@ -63,6 +63,13 @@ while (true)
         case "6":
             Uteis.SaidaProduto(produtos, movimentos);
             Console.WriteLine();
+            break;
+
+        case "8":
+            Uteis.ProdutosFormatados(produtos);
+            Console.Write("Digite o ID do produto: ");
+            int produtoId = int.Parse(Console.ReadLine());
+            Uteis.ExtratoProduto(produtoId, produtos, movimentos);
             break;
 
         case "9":
