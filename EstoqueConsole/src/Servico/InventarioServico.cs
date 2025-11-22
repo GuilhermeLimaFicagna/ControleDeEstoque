@@ -558,7 +558,7 @@ namespace EstoqueConsole.src.Servico
                 else
                 {
                     Console.BackgroundColor = ConsoleColor.Red;
-                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
 
                 // Escreve texto colorido
@@ -646,7 +646,7 @@ namespace EstoqueConsole.src.Servico
                 else
                 {
                     Console.BackgroundColor = ConsoleColor.Red;
-                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
 
                 // Escreve texto colorido
