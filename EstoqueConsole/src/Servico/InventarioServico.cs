@@ -542,7 +542,7 @@ namespace EstoqueConsole.src.Servico
             {
                 string linhaTexto =
                     mov.Data.ToString("dd/MM/yyyy HH:mm").PadRight(dataWidth + 2) +
-                    mov.Id.ToString().PadRight(idWidth + 2) +
+                    mov.ProdutoId.ToString().PadRight(idWidth + 2) +
                     nomeProduto.PadRight(tipoWidth + 5) +
                     mov.Tipo.PadRight(tipoWidth + 2) +
                     mov.Quantidade.ToString().PadRight(qtdWidth + 2) +
@@ -630,7 +630,7 @@ namespace EstoqueConsole.src.Servico
 
                 string linhaTexto =
                     mov.Data.ToString("dd/MM/yyyy HH:mm").PadRight(dataWidth + 1) +
-                    mov.Id.ToString().PadRight(prodWidth + 2) +
+                    mov.ProdutoId.ToString().PadRight(prodWidth + 2) +
                     nomeProduto.PadRight(prodWidth + 5) +
                     mov.Tipo.PadRight(tipoWidth + 3) +
                     mov.Quantidade.ToString().PadRight(qtdWidth + 3) +
