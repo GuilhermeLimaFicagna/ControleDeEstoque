@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.IO;
+using System.Text;
 using EstoqueConsole.src.Modelo;
 
 namespace EstoqueConsole.src.Servico
@@ -8,6 +9,9 @@ namespace EstoqueConsole.src.Servico
         // Salvar Produtos em Ram no produtos.csv
         public static void SalvarProdutos(List<Produto> produtos)
         {
+            // Variável para escrita atômica
+            var path = Uteis._Path();
+            var tempPath = path + ".tmp";
             try
             {
                 var stringb = new StringBuilder();
@@ -18,7 +22,9 @@ namespace EstoqueConsole.src.Servico
                 {
                     stringb.AppendLine($"{p.Id};{p.Nome};{p.Categoria};{p.EstoqueMinimo};{p.Saldo}");
                 }
-                File.WriteAllText(Uteis._Path(), stringb.ToString(), Encoding.UTF8);
+                // Escreve em arquivo temporário e depois move para o .csv
+                File.WriteAllText(tempPath, stringb.ToString(), Encoding.UTF8);
+                File.Move(tempPath, path, true);
 
                 Console.BackgroundColor = ConsoleColor.Green;
                 Console.ForegroundColor = ConsoleColor.Black;

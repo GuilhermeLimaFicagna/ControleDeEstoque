@@ -65,6 +65,11 @@ while (true)
             Console.WriteLine();
             break;
 
+        case "7":
+            Uteis.AbaixoMinimo(produtos);
+            Console.WriteLine();
+            break;
+
         case "8":
             Uteis.ExtratoProduto(0, produtos, movimentos);
             break;

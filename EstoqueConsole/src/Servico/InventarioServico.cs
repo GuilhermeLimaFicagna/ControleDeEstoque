@@ -436,6 +436,7 @@ namespace EstoqueConsole.src.Servico
         }
 
         // =========== MÉTODOS EXTRATO ============  //
+
         //Mostrando Extrato (Produto Específico ou Geral)
         public static void ExtratoProduto(int produtoId, List<Produto> produtos, List<Movimento> movimentos)
         {
@@ -667,6 +668,21 @@ namespace EstoqueConsole.src.Servico
 
             Console.ResetColor();
             Console.WriteLine("\n===== FIM DO EXTRATO GERAL =====\n");
+        }
+
+        // =========== MÉTODOS ABAIXO MÍNIMO ============  //
+        public static void AbaixoMinimo(List<Produto> produtos)
+        {
+            Console.WriteLine("\n===== PRODUTOS ABAIXO DO MINIMO =====\n");
+            var produtosAbaixoMinimo = produtos.Where(p => p.Saldo < p.EstoqueMinimo).ToList();
+            if (!produtosAbaixoMinimo.Any())
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Nenhum produto está com saldo inferior ao mínimo!");
+                Console.ResetColor();
+                return;
+            }
+            ProdutosFormatados(produtosAbaixoMinimo);
         }
     }
 }
