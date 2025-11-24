@@ -102,6 +102,13 @@ namespace EstoqueConsole.src.Servico
         public static void EditarProduto(List<Produto> produtos)
         {
             Console.WriteLine("\n ** Produtos disponíveis para editar **");
+
+            if (!produtos.Any())
+            {
+                Console.WriteLine("Nenhum produto cadastrado.");
+                return;
+            }
+
             ProdutosFormatados(produtos);
 
             Console.Write("\nDigite o ID do produto que deseja editar: ");
@@ -325,6 +332,13 @@ namespace EstoqueConsole.src.Servico
         public static void EntradaProduto(List<Produto> produtos, List<Movimento> movimentos)
         {
             Console.WriteLine("\n ** Produtos disponíveis para dar entrada **");
+
+            if (!produtos.Any())
+            {
+                Console.WriteLine("Nenhum produto cadastrado.");
+                return;
+            }
+
             ProdutosFormatados(produtos);
 
             Console.Write("\nDigite o ID do produto que deseja dar entrada: ");
@@ -379,6 +393,13 @@ namespace EstoqueConsole.src.Servico
         public static void SaidaProduto(List<Produto> produtos, List<Movimento> movimentos)
         {
             Console.WriteLine("\n ** Produtos disponíveis para dar Saída **");
+
+            if (!produtos.Any())
+            {
+                Console.WriteLine("Nenhum produto cadastrado.");
+                return;
+            }
+
             ProdutosFormatados(produtos);
 
             Console.Write("\nDigite o ID do produto que deseja dar Saída: ");
@@ -444,7 +465,7 @@ namespace EstoqueConsole.src.Servico
 
             if (!produtos.Any())
             {
-                Console.WriteLine("Nenhum produto cadastrado!");
+                Console.WriteLine("Nenhum produto cadastrado!\n");
                 return;
             }
 
@@ -593,7 +614,7 @@ namespace EstoqueConsole.src.Servico
 
             if (!ordem.Any())
             {
-                Console.WriteLine("Nenhum movimento encontrado!");
+                Console.WriteLine("Nenhum movimento encontrado!\n");
                 return;
             }
 

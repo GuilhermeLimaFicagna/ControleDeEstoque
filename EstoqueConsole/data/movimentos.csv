@@ -1,23 +1,6 @@
 ﻿id;produtoId;tipo;quantidade;data;observacao
-1;2;ENTRADA;10;17/11/2025 21:15:23;test
-2;7;SAIDA;30;17/11/2025 21:20:46;testando
-3;3;SAIDA;30;17/11/2025 21:40:00;testando outra vez
-4;3;ENTRADA;7;18/11/2025 23:19:42;Entrada em estoque
-5;3;ENTRADA;10;18/11/2025 23:20:15;Entrada em estoque
-6;9;SAIDA;5;18/11/2025 23:20:53;Saída do estoque
-7;11;SAIDA;333;18/11/2025 23:25:22;Saída do estoque
-8;11;ENTRADA;666;18/11/2025 23:25:42;Entrada em estoque
-9;10;SAIDA;5;19/11/2025 17:19:42;Saída do estoque
-10;16;ENTRADA;10;19/11/2025 17:20:32;Entrada em estoque
-11;9;ENTRADA;15;19/11/2025 17:27:44;Entrada em estoque
-12;17;ENTRADA;50;21/11/2025 17:59:26;Entrada em estoque
-13;17;SAIDA;100;21/11/2025 17:59:37;Saída do estoque
-14;17;SAIDA;23;21/11/2025 18:01:14;Saída do estoque
-15;17;ENTRADA;22;21/11/2025 18:40:23;Entrada em estoque
-16;18;SAIDA;30;21/11/2025 19:25:35;Saída do estoque
-17;19;ENTRADA;3;21/11/2025 19:34:32;Entrada em estoque
-18;15;SAIDA;7;21/11/2025 19:37:03;Saída do estoque
-19;20;SAIDA;2500;22/11/2025 12:25:59;Saída do estoque
-20;20;SAIDA;850;22/11/2025 12:26:10;Saída do estoque
-21;19;SAIDA;44;22/11/2025 12:26:29;Saída do estoque
-22;10;ENTRADA;5;22/11/2025 12:26:39;Entrada em estoque
+1;2;ENTRADA;100;23/11/2025 21:42:09;Entrada em estoque
+2;1;SAIDA;100;23/11/2025 21:42:39;Saída do estoque
+3;1;ENTRADA;60;23/11/2025 21:46:03;Entrada em estoque
+4;2;SAIDA;100;23/11/2025 21:46:15;Saída do estoque
+5;3;SAIDA;10;23/11/2025 21:51:27;Saída do estoque
